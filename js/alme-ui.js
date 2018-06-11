@@ -1023,7 +1023,10 @@ var NIT = NIT || {};
             $inputBox.attr("disabled", false);
 
             // put focus back in input box
-            $inputBox.trigger("focus");
+            if(!$ui.hasClass("mobile")) {
+                $inputBox.trigger("focus");
+            }
+            
         }
 
         /*
