@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Express Scripts, Pharmacy Benefit Management (PBM), Order Prescriptions, Workers' Compensation</title>
+<link href="includes/styles2.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript">
+function checkKey() {
+	if (window.event && window.event.keyCode == 13)
+	{
+		window.location='04.htm';
+		setCookie('myDraggableDivX',document.getElementById('agentwin').style.left);
+		setCookie('myDraggableDivY',document.getElementById('agentwin').style.top);
+		return false;
+	}
+}
+</script>
+<script src="includes/AC_RunActiveContent.js" type="text/javascript"></script>
+<script src="includes/functions.js" type="text/javascript"></script>
+<script type="text/javascript" src="includes/drag_drop.js"></script>
+
+</head>
+<body class="sub_bg" onload="delay()">
+<div id="hide">
+  <div align="left"><img src="images/03.jpg" width="1000" height="647" border="0" usemap="#Map3" />
+  </div>
+<div class="topbar" id="agentwin">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><img id="headsub" src="images/agent_header.png" width="239" height="92" border="0" usemap="#Map" /></td>
+    </tr>
+    <tr id="row1">
+      <td><div class="response_div"><strong><span class="userResponse">User: </span></strong>Why should I switch?
+        <p><strong class="agentResponse">Virtual Sara: </strong>Maximize your health. Stay on budget. Manage  your time. You can have it all by getting your maintenance medications  delivered safely, reliably and conveniently to your home with Home Delivery  from the Express Scripts Pharmacy. Select a video on this page to learn more. </p>
+        </div></td>
+    </tr>
+    <tr id="row2">
+      <td><img src="images/agent_title_ask.png" alt="" width="239" height="22" /></td>
+    </tr>
+    <tr id="row3">
+      <td class="input_bg"><textarea name="textarea2" class="input" onKeyDown="return checkKey()" onFocus=" if (this.value=='Type your question here.') this.value=''" onBlur=" if (this.value=='') this.value='Type your question here.'">Type your question here.</textarea></td>
+    </tr>
+    <tr id="row4">
+      <td><img src="images/agent_title_bot.png" width="239" height="5" /></td>
+    </tr>
+    <tr id="row5">
+      <td><img src="images/agent_title_foot.png" width="239" height="26" border="0" usemap="#Map2"></td>
+    </tr>
+  </table>
+</div>
+<br />
+<map name="Map3" id="Map3">
+	<area shape="rect" coords="523,278,601,303" href="javascript:window.location='04.htm', setCookie('myDraggableDivX',document.getElementById('agentwin').style.left), setCookie('myDraggableDivY',document.getElementById('agentwin').style.top);" />
+    <area shape="rect" coords="52,172,182,284" href="javascript:window.open('03_pop.htm', 'myWin', 'height=664, width=664, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no'), void 0;" />
+</map>
+<map name="Map"><area shape="rect" coords="218,2,237,22" href="javascript:changeMe()"></map>
+<map name="Map2"><area shape="rect" coords="157,5,237,28" href="04.htm" onClick="setCookie('myDraggableDivX',document.getElementById('agentwin').style.left), setCookie('myDraggableDivY',document.getElementById('agentwin').style.top);">
+</map>
+<script language="javascript">
+var theHandle = document.getElementById("headsub");
+var theRoot = document.getElementById("agentwin");
+Drag.init(theHandle, theRoot);
+checkCookie();
+</script>
+</div>
+</body>
+</html>

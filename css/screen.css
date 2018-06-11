@@ -1,0 +1,927 @@
+/* ui elements */
+.button {
+  cursor: pointer;
+}
+
+/***************************************************
+    reset
+***************************************************/
+#alme-wrap html, #alme-wrap body, #alme-wrap div, #alme-wrap span, #alme-wrap applet, #alme-wrap object, #alme-wrap iframe,
+#alme-wrap h1, #alme-wrap h2, #alme-wrap h3, #alme-wrap h4, #alme-wrap h5, #alme-wrap h6, #alme-wrap p, #alme-wrap blockquote, #alme-wrap pre,
+#alme-wrap a, #alme-wrap abbr, #alme-wrap acronym, #alme-wrap address, #alme-wrap big, #alme-wrap cite, #alme-wrap code,
+#alme-wrap del, #alme-wrap dfn, #alme-wrap em, #alme-wrap img, #alme-wrap ins, #alme-wrap kbd, #alme-wrap q, #alme-wrap s, #alme-wrap samp,
+#alme-wrap small, #alme-wrap strike, #alme-wrap strong, #alme-wrap sub, #alme-wrap sup, #alme-wrap tt, #alme-wrap var,
+#alme-wrap b, #alme-wrap u, #alme-wrap i, #alme-wrap center,
+#alme-wrap dl, #alme-wrap dt, #alme-wrap dd, #alme-wrap ol, #alme-wrap ul, #alme-wrap li,
+#alme-wrap fieldset, #alme-wrap form, #alme-wrap label, #alme-wrap legend,
+#alme-wrap table, #alme-wrap caption, #alme-wrap tbody, #alme-wrap tfoot, #alme-wrap thead, #alme-wrap tr, #alme-wrap th, #alme-wrap td,
+#alme-wrap article, #alme-wrap aside, #alme-wrap canvas, #alme-wrap details, #alme-wrap embed,
+#alme-wrap figure, #alme-wrap figcaption, #alme-wrap footer, #alme-wrap header, #alme-wrap hgroup,
+#alme-wrap menu, #alme-wrap nav, #alme-wrap output, #alme-wrap ruby, #alme-wrap section, #alme-wrap summary,
+#alme-wrap time, #alme-wrap mark, #alme-wrap audio, #alme-wrap video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	vertical-align: baseline;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+body {
+  margin: 0;
+  height: 99vh;
+}
+#alme-wrap html {
+  line-height: 1;
+}
+#alme-wrap ol, #alme-wrap ul {
+  list-style: none;
+}
+#alme-wrap table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#alme-wrap caption, #alme-wrap th, #alme-wrap td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+#alme-wrap q, #alme-wrap blockquote {
+  quotes: none;
+}
+#alme-wrap q:before, #alme-wrap q:after, #alme-wrap blockquote:before, #alme-wrap blockquote:after {
+  content: "";
+  content: none;
+}
+#alme-wrap a img {
+  border: none;
+}
+#alme-wrap article, #alme-wrap aside, #alme-wrap details, #alme-wrap figcaption, #alme-wrap figure, #alme-wrap footer, #alme-wrap header, #alme-wrap hgroup, #alme-wrap menu, #alme-wrap nav, #alme-wrap section, #alme-wrap summary {
+  display: block;
+}
+
+/***************************************************
+  SPRITES
+***************************************************/
+#alme-wrap .ui-sound-on, #alme-wrap .ui-sound-off {
+  margin-right: 3px;
+}
+#alme-wrap #alme-font-up {
+  margin-right: 5px;
+}
+#alme-wrap #alme-font-down {
+  margin-right: 6px;
+}
+#alme-wrap .ui-sprite, #alme-wrap .ui-alme-avatar, #alme-wrap .ui-minimize, #alme-wrap .ui-close, #alme-wrap .ui-dock-out, #alme-wrap .ui-dock-side, #alme-wrap .ui-font-down, #alme-wrap .ui-font-up, #alme-wrap .ui-question-mark, #alme-wrap .ui-sound-off, #alme-wrap .ui-sound-on, #alme-wrap .ui-user-avatar {
+  display: block;
+}
+#alme-wrap .ui-sprite, #alme-wrap .ui-alme-avatar, #alme-wrap .ui-minimize, #alme-wrap .ui-close, #alme-wrap .ui-dock-out, #alme-wrap .ui-dock-side, #alme-wrap .ui-font-down, #alme-wrap .ui-font-up, #alme-wrap .ui-question-mark, #alme-wrap .ui-sound-off, #alme-wrap .ui-sound-on, #alme-wrap .ui-user-avatar {
+  background: url('../images/close-minimize.png') no-repeat;
+}
+#alme-wrap .ui-alme-avatar {
+  background: url('../images/alme-avatar.png') no-repeat;
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+}
+#alme-wrap .ui-close {
+  background-position: 0 0;
+  height: 25px;
+  width: 25px;
+}
+#alme-wrap .ui-minimize {
+  background-position: -25px 5px;
+  height: 25px;
+  width: 25px;
+}
+/* #alme-wrap .ui-close:hover, #alme-wrap .ui-close.close_hover, #alme-wrap .ui-close.close-hover {
+  background-position: 0 -167px;
+} */
+#alme-wrap .ui-dock-out {
+  background-position: 0 -42px;
+  height: 25px;
+  width: 25px;
+}
+#alme-wrap .ui-dock-out:hover, #alme-wrap .ui-dock-out.dock-out_hover, #alme-wrap .ui-dock-out.dock-out-hover {
+  background-position: 0 -67px;
+}
+#alme-wrap .ui-dock-side {
+  background-position: 0 -92px;
+  height: 25px;
+  width: 25px;
+  display: none;
+}
+#alme-wrap .ui-dock-side:hover, #alme-wrap .ui-dock-side.dock-side_hover, #alme-wrap .ui-dock-side.dock-side-hover {
+  background-position: 0 -117px;
+}
+#alme-wrap .ui-font-down {
+  background-position: 0 -142px;
+  height: 25px;
+  width: 25px;
+}
+#alme-wrap .ui-font-down:hover, #alme-wrap .ui-font-down.font-down_hover, #alme-wrap .ui-font-down.font-down-hover {
+  background-position: 0 -17px;
+}
+#alme-wrap .ui-font-up {
+  background-position: 0 -242px;
+  height: 25px;
+  width: 25px;
+  display: none;
+}
+#alme-wrap .ui-font-up:hover, #alme-wrap .ui-font-up.font-up_hover, #alme-wrap .ui-font-up.font-up-hover {
+  background-position: 0 -217px;
+}
+#alme-wrap .ui-question-mark {
+  background-position: 0 0;
+  height: 17px;
+  width: 17px;
+}
+#alme-wrap .ui-question-mark:hover, #alme-wrap .ui-question-mark.question-mark_hover, #alme-wrap .ui-question-mark.question-mark-hover {
+  background-position: -17px 0;
+}
+#alme-wrap .ui-sound-off {
+  background-position: 0 -292px;
+  height: 25px;
+  width: 25px;
+  display:  none;
+}
+#alme-wrap .ui-sound-off:hover, #alme-wrap .ui-sound-off.sound-off_hover, #alme-wrap .ui-sound-off.sound-off-hover {
+  background-position: 0 -317px;
+}
+#alme-wrap .ui-sound-on {
+  background-position: 0 -342px;
+  height: 25px;
+  width: 25px;
+}
+#alme-wrap .ui-sound-on:hover, #alme-wrap .ui-sound-on.sound-on_hover, #alme-wrap .ui-sound-on.sound-on-hover {
+  background-position: 0 -192px;
+}
+#alme-wrap .ui-user-avatar {
+  background-position: 0 -405px;
+  height: 38px;
+  width: 38px;
+  display: none;
+}
+
+/* #wrapper, #header { margin-left: 20%; width: 80%; } */
+#wrapper {
+  margin: 0 auto;
+}
+
+#alme-global-wrapper {
+  overflow: auto;
+  position: relative;
+}
+
+#alme-window {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+#alme-drag-wrap {
+  position: fixed;
+}
+
+/***************************************************
+  launch button
+***************************************************/
+#launch-button {
+  background: #45499C;
+  -webkit-border-radius: 1px 0 0 1px;
+  -moz-border-radius: 1px 0 0 1px;
+  border-radius: 1px 0 0 1px;
+  -webkit-box-shadow: 0 0 12px 0px #666666;
+  -moz-box-shadow: 0 0 12px 0px #666666;
+  box-shadow: 0 0 12px 0px #666666;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  height: 44px;
+  line-height: 1.2;
+  padding: 11px 105px 14px 17px;
+  position: fixed;
+  right: 0px;
+  top: 50%;
+  z-index: 5;
+}
+
+#alme-engagement-agent {
+  background: url("../images/updated_cloud.png") no-repeat;
+  display: block;
+  height: 85px;
+  width: 90px;
+}
+
+#launch-button .launch-button-agent {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
+
+#launch-button .preview {
+  text-align: left;
+}
+
+#launch-button .full {
+  overflow: hidden;
+  width: 164px;
+  white-space: nowrap;
+  width: 0px;
+}
+
+/***************************************************
+  Base UI styles
+***************************************************/
+#alme-draggable {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#alme-wrap {
+  background: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  /* misc */
+}
+#alme-wrap #alme-header {
+  background: #EFEFEF;
+  height: 25px;
+	line-height: 25px;
+  overflow: hidden;
+  padding: 7px 7px 7px 16px;
+  color: #666666;
+  font-weight:  bold;
+}
+#alme-wrap #alme-header #alme-header-banner {
+  color: #666666;
+  font-weight: 700;
+  display: inline-block;
+}
+#alme-wrap #alme-header ul {
+  float: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#alme-wrap #alme-header ul li {
+  float: left;
+}
+#alme-wrap #alme-header ul li a {
+  margin-left: 7px;
+}
+#alme-wrap #alme-body {
+  background: #ffffff;
+  height: 100%;
+  overflow: auto;
+}
+#alme-wrap #alme-chat-history {
+  bottom: 0;
+  box-sizing: border-box;
+  line-height: 1.3;
+  padding: 20px 20px 0 20px;
+  position: absolute;
+  width: 100%;
+}
+#alme-wrap #alme-footer {
+  background: #EFEFEF;
+  cursor: move;
+  padding: 20px 20px;
+  position: relative;
+  height: 43px;
+  z-index: 10;
+}
+#alme-wrap .alme-input-wrap {
+  background: #ffffff;
+  border: 1px solid #b5b5b5;
+  border-radius: 7px;
+  color: #717171;
+  float: left;
+  height: 41px;
+  position: relative;
+  width: 100%;
+}
+#alme-wrap .alme-input-wrap input {
+  background: none;
+  border: 0;
+  color: #717171;
+  font-size: 16px;
+  height: 41px;
+  margin: 0;
+  outline: none;
+  padding: 0 28px 0 8px;
+  resize: none;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*#alme-wrap .alme-input {
+  padding: 0 28px 0 8px;
+}*/
+#alme-wrap #alme-input-field.disabled {
+  color: #ccc;
+}
+#alme-wrap #alme-help-button {
+  display: block;
+  margin: -9px 7px 0 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  display: none;
+}
+#alme-wrap .alme-input-button-wrap {
+  width: 60px;
+}
+#alme-wrap #alme-input-button {
+  background: #003366;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: .933em;
+  font-weight: bold;
+  height: 42px;
+  line-height: 42px;
+  text-align: center;
+  border-radius: 7px;
+  text-decoration: none;
+  /*! text-transform: uppercase; */
+}
+#alme-wrap #alme-input-button:hover, #alme-wrap #alme-input-button:active {
+  background-color: #003366;
+}
+#alme-wrap form {
+  float: none;
+}
+#alme-wrap form td {
+  padding-bottom: 0;
+  vertical-align: bottom;
+}
+
+#alme-page-wrap {
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+/***************************************************
+  sidebar UI
+***************************************************/
+#alme-wrap.sidebar {
+  background: #f4f4f4;
+  -webkit-box-shadow: 0 0 0 0 transparent;
+  -moz-box-shadow: 0 0 0 0 transparent;
+  box-shadow: 0 0 0 0 transparent;
+  right: -400px;
+  position: fixed;
+  top: 0px;
+  width: 400px;
+  z-index: 100;
+}
+#alme-wrap.sidebar #inset-shadow {
+  background: url("../images/inset-shadow.png") repeat-y;
+  position: absolute;
+  height: 100%;
+  width: 6px;
+  z-index: 101;
+}
+#alme-wrap.sidebar #alme-body {
+  position: relative;
+}
+#alme-wrap.sidebar #alme-chat-history {
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 0 21px;
+  position: absolute;
+  width: 100%;
+}
+#alme-wrap.sidebar #alme-footer {
+  cursor: inherit;
+}
+
+/***************************************************
+  sidebar Mobile
+***************************************************/
+#alme-wrap.sidebar.mobile {
+  bottom: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  top: auto !important;
+  width: 100% !important;
+}
+#alme-wrap.sidebar.mobile #alme-content-wrap {
+  height: 0;
+}
+#alme-wrap.sidebar.mobile #inset-shadow {
+  display: none;
+}
+#alme-wrap.sidebar.mobile .alme-input {
+  padding: 0 28px 0 8px;
+}
+
+/***************************************************
+  dockable UI
+***************************************************/
+#alme-wrap.dockable {
+  bottom: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  display: none;
+  height: auto;
+  overflow: visible !important;
+  position: fixed;
+  right: 0;
+  width: 465px;
+  z-index: 100000;
+}
+#alme-wrap.dockable #alme-header {
+  cursor: move;
+  overflow: hidden;
+}
+#alme-wrap.dockable #alme-chat-history {
+  font-size: 1em;
+  padding: 20px 21px 0 21px;
+}
+#alme-wrap.dockable #alme-close-button {
+  display: block;
+}
+#alme-wrap.dockable #alme-content-wrap {
+  background: #fff;
+  overflow: hidden;
+}
+#alme-wrap.dockable #alme-content-wrap {
+  width: 100% !important;
+}
+#alme-wrap.dockable #alme-body {
+  height: 238px;
+  position: relative;
+  width: 100% !important;
+}
+#alme-wrap.dockable.input-engagement {
+  display: block;
+}
+#alme-wrap.dockable.input-engagement #alme-content-wrap {
+  height: 0;
+}
+
+#alme-wrap #table-input {
+  padding-right: 15px;
+}
+
+#alme-wrap.dockable.mobile {
+  bottom: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  top: auto !important;
+  width: 100% !important;
+}
+#alme-wrap.dockable.mobile #alme-content-wrap {
+  height: 0;
+}
+
+/***************************************************
+  Chat history
+***************************************************/
+/* General */
+#alme-wrap {
+  /* Alme */
+}
+#alme-wrap .chat-input {
+  padding-bottom: 20px;
+}
+#alme-wrap .alme-text, #alme-wrap .user-text {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #000000;
+  font-size: 1em;
+  padding: .7em .8em .73em .8em;
+  position: relative;
+}
+#alme-wrap .alme-list-title {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+#alme-wrap .alme-text p, #alme-wrap .user-text p {
+  margin: 0;
+  padding: 0 0 9px 0;
+}
+#alme-wrap .alme-text p:last-child, #alme-wrap .user-text p:last-child {
+  padding: 0;
+}
+#alme-wrap .alme-avatar {
+  float: left;
+}
+#alme-wrap .alme-text {
+  background: #003366;
+  color: #FFF;
+  margin: 0 0 0 50px;
+}
+#alme-wrap .alme-text .carrot {
+  position: absolute;
+  right: 100%;
+  top: 10px;
+  border: 8px solid transparent;
+  border-right-color: #003366;
+}
+#alme-wrap .alme-text a {
+  color: #fff;
+}
+#alme-wrap .alme-text a:active, #alme-wrap .alme-text a:hover {
+  text-decoration: none;
+}
+#alme-wrap .alme-text img {
+  max-width: 100%;
+}
+#alme-wrap .alme-text .alme-section-more-link,
+#alme-wrap .alme-text .alme-section-less-link {
+  font-weight: 300;
+  padding: 0;
+  text-align: right;
+}
+#alme-wrap .alme-text .alme-section-more-link a,
+#alme-wrap .alme-text .alme-section-less-link a {
+  cursor: pointer;
+}
+#alme-wrap .alme-text .alme-section-less-link {
+  display: none;
+}
+/*#alme-wrap .suggested-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0;
+}
+#alme-wrap .suggested-link-list li {
+  padding-bottom: 5px;
+}
+#alme-wrap .suggested-link-list li.suggested-link-title {
+  font-size: 120%;
+  font-weight: bold;
+  letter-spacing: .03em;
+  line-height: 1.3;
+}
+#alme-wrap .suggested-link-list .suggested-link {
+  background: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #31363d;
+  display: block;
+  font-size: .9333em;
+  font-weight: bold;
+  padding: .57em .643em .47em .643em;
+  text-decoration: none;
+}
+#alme-wrap .suggested-link-list .suggested-link:hover, #alme-wrap .suggested-link-list .suggested-link:active {
+  background: #e6e6e6;
+  text-decoration: none;
+}*/
+#alme-wrap .alme-new-messages {
+	height: 0;
+	line-height: 20px;
+	font-size: 12px;
+	text-align: center;
+	color: #7e8183;
+	position: absolute;
+	bottom: 83px;
+	z-index: 5;
+	background: #ffffff;
+	width: 95%;
+	cursor: pointer;
+}
+#alme-wrap .alme-text .alme-nav-link {
+	background: #ffffff;
+	cursor: pointer;
+	-webkit-border-radius: 4px;
+	-mox-border-radius: 4px;
+	border-radius: 4px;
+	color: #31363d;
+	display: block;
+	padding: 7px 0 7px 10px;
+	text-decoration: none;
+	margin: 10px 0 0 0;
+}
+#alme-wrap .alme-text .alme-nav-link:hover,
+#alme-wrap .alme-text .alme-nav-link:focus {
+	background: #f2f2f2;
+}
+#alme-wrap .alme-list-title {
+	font-weight: bold;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+#alme-wrap .suggested-link-list {
+  list-style: none;
+  margin: 5px 0 5px 0;
+  padding: 0 0 0 0;
+}
+#alme-wrap .suggested-link-list li {
+	margin: 0 0 0 17px;
+	padding: 2px 0 2px 0;
+}
+#alme-wrap .suggested-link-list li.suggested-link-title {
+  font-size: 120%;
+  font-weight: bold;
+  letter-spacing: .03em;
+  line-height: 1.3;
+}
+#alme-wrap .suggested-link-list .suggested-link {
+  cursor: pointer;
+  color: #FFF;
+  display: block;
+  font-size: .9333em;
+  text-decoration: underline;
+}
+#alme-wrap .suggested-link-list .suggested-link:hover, 
+#alme-wrap .suggested-link-list .suggested-link:active,
+#alme-wrap .suggested-link-list .suggested-link:focus {
+  text-decoration: none;
+}
+/* User */
+#alme-wrap .user-text {
+  background: #FFF;
+  color: #444;
+  font-size: 16px;
+  margin: 0 0px 0 0;
+  text-align: right;
+}
+#alme-wrap .user-text .carrot {
+  border: 8px solid transparent;
+  border-left-color: #FFF;
+  left: 100%;
+  position: absolute;
+  top: 10px;
+}
+#alme-wrap .user-avatar {
+  float: right;
+}
+#alme-wrap .heres-more li.title {
+  font-style: bold;
+  font-weight: 500;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+#alme-wrap .heres-more li {
+  list-style: disc;
+  margin: 0 0 0 2em;
+}
+#alme-wrap #alme-body {
+  overflow: auto;
+}
+#alme-wrap .text-center {
+  text-align: center;
+}
+#alme-wrap .next-it-watermark {
+  color: #7e8183;
+  font-size: 9px;
+  opacity: .75;
+  padding: 5px 0 0 0;
+  text-align: center;
+  -webkit-transition: all 0.25s;
+  -moz-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  transition: all 0.25s;
+}
+#alme-wrap .next-it-watermark a {
+  color: #7e8183;
+  text-decoration: none;
+}
+#alme-wrap .next-it-watermark:hover,
+#alme-wrap .next-it-watermark:active {
+  opacity: 1;
+}
+
+/***************************************************
+  Universal styles
+***************************************************/
+#alme-wrap .display-none {
+  display: none;
+}
+
+/***************************************************
+  Mobile styles
+***************************************************/
+@media (min-width: 0px) and (max-width: 767px) {
+  #alme-dock-out, #alme-dock-sidebar {
+    display: none !important;
+  }
+
+  #alme-wrap.dock .alme-input-wrap, #alme-wrap.sidebar .alme-input-wrap {
+    padding: 0;
+    width: 100%;
+  }
+
+  #alme-body {
+    overflow: auto;
+  }
+
+  #inset-shadow {
+    display: none;
+  }
+
+  .ui-dock-out,
+  .ui-dock-side {
+    display: none;
+  }
+}
+/*! jQuery UI - v1.11.2 - 2014-11-04
+* http://jqueryui.com
+* Includes: core.css, draggable.css, resizable.css
+* Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
+.ui-helper-hidden {
+  display: none;
+}
+
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+.ui-helper-clearfix:before, .ui-helper-clearfix:after {
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+
+.ui-helper-clearfix:after {
+  clear: both;
+}
+
+.ui-helper-clearfix {
+  min-height: 0;
+}
+
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+.ui-front {
+  z-index: 100;
+}
+
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.ui-widget-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ui-draggable-handle {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.ui-resizable {
+  position: relative;
+}
+
+.ui-resizable-handle {
+  position: absolute;
+  font-size: 0.1px;
+  display: block;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle {
+  display: none;
+}
+
+.ui-resizable-n {
+  cursor: n-resize;
+  height: 7px;
+  width: 100%;
+  top: -5px;
+  left: 0;
+}
+
+.ui-resizable-s {
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+.ui-resizable-e {
+  cursor: e-resize;
+  width: 7px;
+  right: -5px;
+  top: 0;
+  height: 100%;
+}
+
+.ui-resizable-w {
+  cursor: w-resize;
+  width: 7px;
+  left: -5px;
+  top: 0;
+  height: 100%;
+}
+
+.ui-resizable-se {
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  right: 1px;
+  bottom: 1px;
+}
+
+.ui-resizable-sw {
+  cursor: sw-resize;
+  width: 9px;
+  height: 9px;
+  left: -5px;
+  bottom: -5px;
+}
+
+.ui-resizable-nw {
+  cursor: nw-resize;
+  width: 9px;
+  height: 9px;
+  left: -5px;
+  top: -5px;
+}
+
+.ui-resizable-ne {
+  cursor: ne-resize;
+  width: 9px;
+  height: 9px;
+  right: -5px;
+  top: -5px;
+}
+
+#alme-wrap  label.alme-file-upload-label input[type="file"] {
+  position:absolute;
+  top: -10000px;
+}
+
+/***** Example custom styling *****/
+#alme-wrap .alme-file-upload-label {
+  border: 2px solid #FFF;
+  border-radius: 3px;
+  padding: 4px 10px;
+  margin: 2px;
+  background: transparent;
+  color: #FFF;
+  display: inline-block;
+  cursor: pointer;
+
+}
+#alme-wrap  .alme-file-upload-label:hover {
+  background: #FFF;
+  color: #003366;
+}
