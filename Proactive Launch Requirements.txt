@@ -1,0 +1,29 @@
+parameter definitions:
+\
+type=input
+    input (Required): The input to be submitted on load. Spaces should be replaced with the + symbol
+    new (Optional): true/false Start a new session?
+type=appevent
+    event (Required): The event name to fire on load
+    input (Optional): A url encoded JSON object that will be sent as parameters to the appevent
+    new (Optional): true/false Start a new session?
+type=unit   
+    input (Required): The display text to show to the user. Spaces should be replaced with the + symbol
+    unit (Required): The unitID GUID to retrieve
+
+Below are some example URLs for testing the possible permutations:
+
+//Test input
+http://127.0.0.1:8080/#?type=input&input=test1
+http://127.0.0.1:8080/#?type=input&input=test1&new=true
+http://127.0.0.1:8080/#?type=input&input=test+1+with+spaces&new=true
+
+//Test AppEvent
+http://127.0.0.1:8080/#?type=appevent&event=WelcomeUser
+http://127.0.0.1:8080/#?type=appevent&event=WelcomeUser&new=true
+http://127.0.0.1:8080/#?type=appevent&event=WelcomeUser&input=%7B%22param1%22%3A%22value1%22%7D
+http://127.0.0.1:8080/#?type=appevent&event=WelcomeUser&input=%7B%22param1%22%3A%22value1%22%7D&new=true
+
+//Test UnitRequest
+http://127.0.0.1:8080/#?type=unit&input=my+awesome+input&unit=00000000-0000-0000-0000-000000000000
+http://127.0.0.1:8080/#?type=unit&input=my+awesome+input&unit=00000000-0000-0000-0000-000000000000&new=true

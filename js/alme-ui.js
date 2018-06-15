@@ -998,14 +998,16 @@ var NIT = NIT || {};
         */
         function disableInput()
         {
-            // turn input box off
-            $inputBox.attr("disabled", true);
+            if($inputBox) {
+                // turn input box off
+                $inputBox.attr("disabled", true);
 
-            // add disabled styles
-            $inputBox.addClass("disabled");
+                // add disabled styles
+                $inputBox.addClass("disabled");
 
-            // put placeholder message
-            $inputBox.val("Please wait...");
+                // put placeholder message
+                $inputBox.val("Please wait...");
+            }
         }
 
         /*
@@ -1338,6 +1340,103 @@ var NIT = NIT || {};
             return String(string).replace(/\\/g, "\\\\").replace(/\'/g, "\\'").replace(/\"/g, "\\\"");
         }
 
+        var prepAgentContext = function()
+        {
+            var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.hash.substring(2);
+
+            var urlParams = {};
+            while (match = search.exec(query)) {
+                urlParams[decode(match[1])] = decode(match[2]);
+            }
+
+            window.NIT.context = {
+                qsParams: urlParams
+            };
+
+            if(!urlParams.debug)
+                window.location.hash = ''
+        }
+
+        var fauxClearSession = function() {
+            cookieService.deleteCookie('NIT_SessionState');
+            cookieService.deleteCookie('NIT_UI');
+            $("#alme-chat-history").empty()
+        }
+
+        var handleProactiveInput = function(input, clearSession) {
+            if(clearSession === "true") {
+                fauxClearSession()
+            }
+
+            // hide button if available
+            if ( settings.engagementType === "button" )
+            {
+                NIT.engagement.hide();
+            }
+
+            NIT.ui.open(input, undefined, !clearSession);
+            lastState.isOpen = false;
+        }
+
+        var handleProactiveEvent = function(event, input, clearSession) {
+            if(clearSession === "true") {
+                fauxClearSession()
+            }
+
+            // hide button if available
+            if ( settings.engagementType === "button" )
+            {
+                NIT.engagement.hide();
+            }
+            
+            if(input) {
+                input = JSON.parse(input);
+            } else {
+                input = {}
+            }
+
+            NIT.ui.openWithEvent(event, input, !clearSession); 
+            lastState.isOpen = false;
+        }
+
+        var handleProactiveUnitRequest = function(unitId, input, clearSession) {
+            if(clearSession === "true") {
+                fauxClearSession()
+            }
+
+            // hide button if available
+            if ( settings.engagementType === "button" )
+            {
+                NIT.engagement.hide();
+            }
+
+            NIT.ui.open(input, unitId, !clearSession);
+            lastState.isOpen = false;
+        }
+
+        var handleQuerystring = function() {
+            var params = NIT.context.qsParams;
+
+            
+            switch(params.type) {
+                case "input":
+                    handleProactiveInput(params.input, params.new)
+                break;
+                case "appevent":
+                    handleProactiveEvent(params.event, params.input, params.new)
+                break;
+                case "unit":
+                    handleProactiveUnitRequest(params.unit, params.input, params.new)
+                break;
+                default:
+                    handleProactiveInput(params.input, params.new)
+                break;
+            }
+        }
         //public functions
         return {
             /*
@@ -1363,6 +1462,9 @@ var NIT = NIT || {};
 
                 // update state of the ui to match last known state or defaults
                 setUiState();
+
+                //Pulls qs and launches with question if needed
+                prepAgentContext()
 
                 // intializes sound
                 if ( settings.soundAvailable )
@@ -1445,8 +1547,15 @@ var NIT = NIT || {};
                     return false;
                 });
 
+                var launched;
+
+                if (NIT.context && NIT.context.qsParams && Object.keys(NIT.context.qsParams).length > 0) {
+                    launched = true;
+                    handleQuerystring();
+                }
+
                 // if was previously open
-                if ( lastState.isOpen )
+                if ( lastState.isOpen && !launched)
                 {
                     // hide button if available
                     if ( settings.engagementType === "button" )
@@ -1462,10 +1571,14 @@ var NIT = NIT || {};
             /*
             * Opens the Alme ui
             */
-            open: function( openInput )
+            open: function( openInput, unitId, loadHistory = true )
             {
-                // loads the chat history
-                loadChatHistory();
+                console.log('open called')
+
+                if(loadHistory) {
+                    // loads the chat history
+                    loadChatHistory();
+                }
 
                 // get the last known layout of the UI
                 var uiLayout = getLayout();
@@ -1605,9 +1718,158 @@ var NIT = NIT || {};
                 // submit provided input, if availble
                 if ( openInput != null )
                 {
-                    NIT.ui.submitInput( openInput );
+                    NIT.ui.submitInput( openInput, unitId );
                 }
             },
+
+            /*
+            * Opens the Alme ui
+            */
+           openWithEvent: function( eventName, parameters, loadHistory = true )
+           {
+               if(loadHistory) {
+                   // loads the chat history
+                   loadChatHistory();
+               }
+
+               // get the last known layout of the UI
+               var uiLayout = getLayout();
+
+               // if ui is responsive and the window width is less than set responsive width
+               if ( settings.isResponsive && $window.width() <= settings.responsiveTakeoverWidth )
+               {
+                   // set chat history height to fill available area
+                   setBodyHeight( $window.height() );
+
+                   if ( settings.engagementType === "button" )
+                   {
+                       $contentWrap.css({
+                           height: "auto"
+                       });
+
+                       $ui.fadeIn();
+                   }
+
+                   if ( settings.engagementType === "input")
+                   {
+                       // animate alme wrapper to full page height
+                       $contentWrap.animate({
+                           height: $window.height() - $footer.outerHeight()
+                       });
+                   }
+               }
+
+               // if ui is in dockable state
+               else if ( uiLayout === "dockable" )
+               {
+                   // if engagement type is button
+                   if ( settings.engagementType === "button" )
+                   {
+                       // set ui dimensions to last known size or default size
+                       // set ui to last known position, or default position
+                       var newSize = getLastSize();
+                       var newPosition = getLastPosition();
+
+                       //var setPosition = lastPosition;
+                       $ui.css({
+                           width: newSize.uiWidth,
+                           height: newSize.uiHeight,
+                           top: newPosition.top,
+                           left: newPosition.left
+                       });
+
+                       // set chat history to fill available space
+                       setBodyHeight( newSize.uiHeight );
+
+                       // fade ui in
+                       $ui.fadeIn(function() {
+                           // set up draggable and resize
+                           if ( settings.isResizable )
+                           {
+                               startResizable();
+                           }
+
+                           if ( settings.isDraggable )
+                           {
+                               startDraggable();
+                           }
+                       });
+                   }
+
+                   // if engagement type is input
+                   else if ( settings.engagementType === "input")
+                   {
+                       var lastSize = getLastSize();
+                       var lastPosition = getLastPosition();
+
+                       // set height of chat history
+                       setBodyHeight( lastSize.uiHeight );
+
+                       var currentPosition = $ui.position();
+                       $ui.css({
+                           top: currentPosition.top,
+                           left: currentPosition.left,
+                           bottom: "auto",
+                           right: "auto"
+                       }).animate({
+                           width: lastSize.uiWidth,
+                           left: lastPosition.left,
+                           top: lastPosition.top,
+                       });
+
+                       // animate content wrap body to last known height - footer
+                       $contentWrap.animate({
+                           height: lastSize.uiHeight - $footer.outerHeight()
+                       }, function() {
+                           $contentWrap.css({
+                               height: "auto"
+                           });
+
+                           // set up draggable and resize
+                           if ( settings.isResizable )
+                           {
+                               startResizable();
+                           }
+
+                           if ( settings.isDraggable )
+                           {
+                               startDraggable();
+                           }
+                       });
+                   }
+
+                   // make sure UI is on screen
+                   resetUiBounds();
+               }
+
+               // if ui is in sidebar state
+               else if ( uiLayout === "sidebar" )
+               {
+                   // set chat content area to be full height - footer height
+                   setBodyHeight( $window.height() );
+
+                   // move ui to onto screen by width defined by settings
+                   $ui.animate({
+                       right: 0,
+                       width: settings.sidebarWidth
+                   });
+
+                   // adjust website content over
+                   adjustWebsiteIn();
+               }
+
+               // focus on the input box if possible
+               //$inputBox.trigger("focus");
+
+               // remember that ui is open
+               lastState.isOpen = true;
+
+               // remember ui state in cookie
+               setUiCookie();
+
+               // submit provided input, if availble
+               agent.sendAppEvent(eventName, parameters); 
+           },
 
             /*
             * Closes the alme ui
@@ -2241,6 +2503,8 @@ var NIT = NIT || {};
                     // collapse on mouseout
                     $engagementButton.on("mouseout", onEngagementMouseout);
                 }
+
+                
             },
 
             /*
