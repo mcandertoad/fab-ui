@@ -1271,7 +1271,7 @@ var NIT = NIT || {};
 
             else if (target.TargetType === "Image Upload") {
                 output += `<label class="alme-file-upload-label">
-                                <input type="file" accept="image/*" id="file-input" onchange="NIT.ui.submitAppEvent('UserFileUploaded'); NIT.ui.removeFileUpload()" onclick="NIT.ui.scrollChatHistory()">
+                                <input type="file" accept="image/*" id="file-input" onchange="NIT.ui.submitAppEvent('UserFileUploaded'); NIT.ui.removeFileUpload()" onclick="NIT.ui.scrollChatHistory()" multiple>
                                 <span>${target.DisplayText}</span>
                             </label>
                             `
