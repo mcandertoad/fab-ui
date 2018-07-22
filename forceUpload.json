@@ -1,0 +1,37 @@
+{
+    "userId": "e1bfa693-32cc-49d4-b45f-f244e9508697",
+    "text": "Hi there, how can I help you?",
+    "responseId": "00000000-0000-0000-0000-000000000000",
+    "responseRevision": 3,
+    "unitId": "00000000-0000-0000-0000-000000000000",
+    "displayLinkCollection": {
+        "Sections": [],
+        "Metadata": null
+    },
+    "displayLinks": [],
+    "displayLinkMetadata": {
+        "Section": [
+            {
+                "HeaderText": "More Information",
+                "Fold": {
+                    "LinkText": "More>>",
+                    "Location": 3
+                }
+            }
+        ]
+    },
+    "navUrl": null,
+    "responseActions": [
+        {
+            "Name": "RequestUploadImage",
+            "Metadata": {}
+        }
+    ],
+    "deferredAppCall": null,
+    "userDisplayName": "You: ",
+    "agentDisplayName": "Alme: ",
+    "maskedInput": "hi",
+    "maintainUiLock": false,
+    "isReverted": false,
+    "extensionData": {}
+}

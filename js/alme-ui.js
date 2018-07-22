@@ -1071,6 +1071,39 @@ var NIT = NIT || {};
         function removeFileUpload() {
             $(".alme-file-upload-label").remove()
         }
+
+        function setUploadPreview(event) {
+            let numFiles = event.files.length;
+
+            if(numFiles === 0) return;
+
+            NIT.previewedFiles = [];
+
+            for(let i = 0; i < numFiles; i++) {
+                let file = event.files[i]
+                NIT.previewedFiles.push(file);
+
+                let reader = new FileReader()
+
+                reader.onload = function (e) {
+                    var previewElm = document.createElement("img");
+                    previewElm.style.backgroundImage = 'url("' + reader.result + '")';
+                    previewElm.className = ".alme-file-upload-preview"
+
+                    $(".alme-file-upload-label").after(previewElm)
+                }
+
+                reader.readAsDataURL(file);
+            }
+
+            var confirmElm = document.createElement("button")
+            confirmElm.className = ".alme-file-upload-confirm"
+            confirmElm.onclick = function() {
+                NIT.ui.submitAppEvent('UserFileUploaded'); 
+                NIT.ui.removeFileUpload()
+            }
+            $(".alme-file-upload-label").after(confirmElm)
+        }
         /*
         * render a alme input
         */
@@ -1271,7 +1304,7 @@ var NIT = NIT || {};
 
             else if (target.TargetType === "Image Upload") {
                 output += `<label class="alme-file-upload-label">
-                                <input type="file" accept="image/*,video/*" id="file-input" onchange="NIT.ui.submitAppEvent('UserFileUploaded'); NIT.ui.removeFileUpload()" onclick="NIT.ui.scrollChatHistory()" multiple>
+                                <input type="file" accept="image/*,video/*" id="file-input" onchange="NIT.ui.setUploadPreview(this);" onclick="NIT.ui.scrollChatHistory()" multiple>
                                 <span>${target.DisplayText}</span>
                             </label>
                             `
@@ -2411,6 +2444,7 @@ var NIT = NIT || {};
 
             disableLink: disableLink,
             removeFileUpload : removeFileUpload,
+            setUploadPreview : setUploadPreview,
             version: nit_alme_ui_version
         }
 
